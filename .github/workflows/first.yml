@@ -26,5 +26,8 @@ jobs:
       - name: test lint
         run: npm run lint
 
+      - name: test cases
+        run: npm run test
+
       - name: Make react build
         run: npm run build
