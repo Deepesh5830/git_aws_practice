@@ -45,6 +45,10 @@ jobs:
   build_job:
     runs-on: ubuntu-latest
 
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -68,16 +72,22 @@ jobs:
           path: dist/
           retention-days: 7
 
-  deploy_job:
-    needs: [first_job, second_job, build_job]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
       - name: "Install Vercel VLI"
         run: npm install -g vercel
 
       - name: "Deploy to Vercel"
-        run: vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy dist --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
+
+  # deploy_job:
+  #   needs: [first_job, second_job, build_job]
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v7
+
+  #     - name: "Install Vercel VLI"
+  #       run: npm install -g vercel
+
+  #     - name: "Deploy to Vercel"
+  #       run: vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN }}

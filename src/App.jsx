@@ -12,6 +12,7 @@ function App() {
   <h1>wellcome to react</h1>
   <div style={{ display:"flex" , justifyContent:"center" , alignItems:"center"}}>
     <h2 style={{ margin: 0 }}>{count}</h2>
+    <h1>Deepesh Kumar</h1>
     </div>
   <button onClick={() => setCount((count) => count + 1)} style={{padding:"5px 10px 5px 10px"  }}>Click</button>
 </div>
