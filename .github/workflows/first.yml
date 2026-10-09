@@ -43,7 +43,6 @@ jobs:
         run: npm run test
 
   build_job:
-    needs: [first_job, second_job]
     runs-on: ubuntu-latest
 
     steps:
@@ -68,3 +67,17 @@ jobs:
           name: react-build
           path: dist/
           retention-days: 7
+
+  deploy_job:
+    needs: [first_job, second_job, build_job]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: "Install Vercel VLI"
+        run: npm install -g vercel
+
+      - name: "Deploy to Vercel"
+        run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
